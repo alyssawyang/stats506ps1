@@ -12,8 +12,7 @@ format: html
 setwd("~/Desktop/Stats\ 506/homework/Stats\ 506\ PS1")
 
 # create column names vector
-wine_colnames <- c("Class", "Alcohol", "Malic acid", "Ash", "Alcalinity of ash", "Magnesium", "Total phenols", "Flavanoids", 
-                   "Nonflavanoid phenols", "Proanthocyanins", "Color intensity", "Hue", "OD280/OD315 of diluted wines", "Proline")
+wine_colnames <- c("Class", "Alcohol", "Malic acid", "Ash", "Alcalinity of ash", "Magnesium", "Total phenols", "Flavanoids", "Nonflavanoid phenols", "Proanthocyanins", "Color intensity", "Hue", "OD280/OD315 of diluted wines", "Proline")
 
 # read in data from wine.data and put it in a data frame
 wine <- data.frame(read.csv("wine.data", header = FALSE))
@@ -93,3 +92,63 @@ total_num_wines <- nrow(wine)
 percentage <- (num_pro_wines / total_num_wines) * 100
 cat("Percentage of wines: ", percentage, "%")
 ```
+
+
+## 1d
+```{r}
+#| code-fold: true
+# find the overall averages
+overall_avg <- sapply(wine[, -1], mean)
+
+# find averages for each class
+class_1 = wine[wine$Class == 1, -1]
+class_2 = wine[wine$Class == 2, -1]
+class_3 = wine[wine$Class == 3, -1]
+
+class_1_avg <- sapply(class_1, mean)
+class_2_avg <- sapply(class_2, mean)
+class_3_avg <- sapply(class_3, mean)
+
+# put all the averages into a table identifying the average value of each variable, 
+# providing one row for the overall average, and one row per class with class averages
+avg_table <- data.frame(overall_avg, class_1_avg, class_2_avg, class_3_avg)
+names(avg_table) <- c("Overall Average", "Class 1 Average", "Class 2 Average", "Class 3 Average")
+t(avg_table)
+```
+
+
+## 1e
+```{r}
+#| code-fold: true
+# find total phenol levels for each class
+class_1_phenols = wine$`Total phenols`[wine$Class == 1]
+class_2_phenols = wine$`Total phenols`[wine$Class == 2]
+class_3_phenols = wine$`Total phenols`[wine$Class == 3]
+
+# conduct pairwise t-tests
+t_1_2 <- t.test(class_1_phenols, class_2_phenols)
+t_1_3 <- t.test(class_1_phenols, class_3_phenols)
+t_2_3 <- t.test(class_2_phenols, class_3_phenols)
+
+# print out p-values to determine significance of the tests
+cat("P-value for t-test for phenols in classes 1 and 2: ", t_1_2$p.value, "\n")
+cat("P-value for t-test for phenols in classes 1 and 3: ", t_1_3$p.value, "\n")
+cat("P-value for t-test for phenols in classes 2 and 3: ", t_2_3$p.value, "\n")
+
+print("Since the p-values for all 3 tests are less than a significance level of alpha = 0.05, the difference between phenol levels in each of the pairs of classes is statistically significant")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

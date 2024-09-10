@@ -112,12 +112,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"~/Desktop/Stats\ 506/homework/Stats\ 506\ PS1"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create column names vector</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>wine_colnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Class"</span>, <span class="st">"Alcohol"</span>, <span class="st">"Malic acid"</span>, <span class="st">"Ash"</span>, <span class="st">"Alcalinity of ash"</span>, <span class="st">"Magnesium"</span>, <span class="st">"Total phenols"</span>, <span class="st">"Flavanoids"</span>, </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Nonflavanoid phenols"</span>, <span class="st">"Proanthocyanins"</span>, <span class="st">"Color intensity"</span>, <span class="st">"Hue"</span>, <span class="st">"OD280/OD315 of diluted wines"</span>, <span class="st">"Proline"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># read in data from wine.data and put it in a data frame</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>wine <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">read.csv</span>(<span class="st">"wine.data"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(wine) <span class="ot">&lt;-</span> wine_colnames</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>wine_colnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Class"</span>, <span class="st">"Alcohol"</span>, <span class="st">"Malic acid"</span>, <span class="st">"Ash"</span>, <span class="st">"Alcalinity of ash"</span>, <span class="st">"Magnesium"</span>, <span class="st">"Total phenols"</span>, <span class="st">"Flavanoids"</span>, <span class="st">"Nonflavanoid phenols"</span>, <span class="st">"Proanthocyanins"</span>, <span class="st">"Color intensity"</span>, <span class="st">"Hue"</span>, <span class="st">"OD280/OD315 of diluted wines"</span>, <span class="st">"Proline"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># read in data from wine.data and put it in a data frame</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>wine <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">read.csv</span>(<span class="st">"wine.data"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(wine) <span class="ot">&lt;-</span> wine_colnames</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="b" class="level2">
@@ -237,6 +236,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
+</section>
+<section id="d" class="level2">
+<h2 class="anchored" data-anchor-id="d">1d</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find the overall averages</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>overall_avg <span class="ot">&lt;-</span> <span class="fu">sapply</span>(wine[, <span class="sc">-</span><span class="dv">1</span>], mean)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># find averages for each class</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>class_1 <span class="ot">=</span> wine[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>class_2 <span class="ot">=</span> wine[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>class_3 <span class="ot">=</span> wine[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>class_1_avg <span class="ot">&lt;-</span> <span class="fu">sapply</span>(class_1, mean)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>class_2_avg <span class="ot">&lt;-</span> <span class="fu">sapply</span>(class_2, mean)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>class_3_avg <span class="ot">&lt;-</span> <span class="fu">sapply</span>(class_3, mean)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># put all the averages into a table identifying the average value of each variable, </span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># providing one row for the overall average, and one row per class with class averages</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>avg_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(overall_avg, class_1_avg, class_2_avg, class_3_avg)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(avg_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Overall Average"</span>, <span class="st">"Class 1 Average"</span>, <span class="st">"Class 2 Average"</span>, <span class="st">"Class 3 Average"</span>)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(avg_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 Alcohol Malic acid      Ash Alcalinity of ash Magnesium
+Overall Average 13.00062   2.336348 2.366517          19.49494  99.74157
+Class 1 Average 13.74475   2.010678 2.455593          17.03729 106.33898
+Class 2 Average 12.27873   1.932676 2.244789          20.23803  94.54930
+Class 3 Average 13.15375   3.333750 2.437083          21.41667  99.31250
+                Total phenols Flavanoids Nonflavanoid phenols Proanthocyanins
+Overall Average      2.295112  2.0292697            0.3618539        1.590899
+Class 1 Average      2.840169  2.9823729            0.2900000        1.899322
+Class 2 Average      2.258873  2.0808451            0.3636620        1.630282
+Class 3 Average      1.678750  0.7814583            0.4475000        1.153542
+                Color intensity       Hue OD280/OD315 of diluted wines
+Overall Average        5.058090 0.9574494                     2.611685
+Class 1 Average        5.528305 1.0620339                     3.157797
+Class 2 Average        3.086620 1.0562817                     2.785352
+Class 3 Average        7.396250 0.6827083                     1.683542
+                  Proline
+Overall Average  746.8933
+Class 1 Average 1115.7119
+Class 2 Average  519.5070
+Class 3 Average  629.8958</code></pre>
+</div>
+</div>
+</section>
+<section id="e" class="level2">
+<h2 class="anchored" data-anchor-id="e">1e</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find total phenol levels for each class</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>class_1_phenols <span class="ot">=</span> wine<span class="sc">$</span><span class="st">`</span><span class="at">Total phenols</span><span class="st">`</span>[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">1</span>]</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>class_2_phenols <span class="ot">=</span> wine<span class="sc">$</span><span class="st">`</span><span class="at">Total phenols</span><span class="st">`</span>[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">2</span>]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>class_3_phenols <span class="ot">=</span> wine<span class="sc">$</span><span class="st">`</span><span class="at">Total phenols</span><span class="st">`</span>[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">3</span>]</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># conduct pairwise t-tests</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>t_1_2 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(class_1_phenols, class_2_phenols)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>t_1_3 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(class_1_phenols, class_3_phenols)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>t_2_3 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(class_2_phenols, class_3_phenols)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># print out p-values to determine significance of the tests</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P-value for t-test for phenols in classes 1 and 2: "</span>, t_1_2<span class="sc">$</span>p.value, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>P-value for t-test for phenols in classes 1 and 2:  1.889329e-11 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P-value for t-test for phenols in classes 1 and 3: "</span>, t_1_3<span class="sc">$</span>p.value, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>P-value for t-test for phenols in classes 1 and 3:  2.915038e-31 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P-value for t-test for phenols in classes 2 and 3: "</span>, t_2_3<span class="sc">$</span>p.value, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>P-value for t-test for phenols in classes 2 and 3:  1.621575e-10 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Since the p-values for all 3 tests are less than a significance level of alpha = 0.05, the difference between phenol levels in each of the pairs of classes is statistically significant"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Since the p-values for all 3 tests are less than a significance level of alpha = 0.05, the difference between phenol levels in each of the pairs of classes is statistically significant"</code></pre>
+</div>
+</div>
 </section>
 </section>
 
