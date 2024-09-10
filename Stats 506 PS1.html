@@ -246,9 +246,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>overall_avg <span class="ot">&lt;-</span> <span class="fu">sapply</span>(wine[, <span class="sc">-</span><span class="dv">1</span>], mean)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># find averages for each class</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>class_1 <span class="ot">=</span> wine[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>class_2 <span class="ot">=</span> wine[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>class_3 <span class="ot">=</span> wine[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>class_1 <span class="ot">&lt;-</span> wine[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>class_2 <span class="ot">&lt;-</span> wine[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>class_3 <span class="ot">&lt;-</span> wine[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>]</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>class_1_avg <span class="ot">&lt;-</span> <span class="fu">sapply</span>(class_1, mean)</span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>class_2_avg <span class="ot">&lt;-</span> <span class="fu">sapply</span>(class_2, mean)</span>
@@ -290,9 +290,9 @@ Class 3 Average  629.8958</code></pre>
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find total phenol levels for each class</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>class_1_phenols <span class="ot">=</span> wine<span class="sc">$</span><span class="st">`</span><span class="at">Total phenols</span><span class="st">`</span>[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">1</span>]</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>class_2_phenols <span class="ot">=</span> wine<span class="sc">$</span><span class="st">`</span><span class="at">Total phenols</span><span class="st">`</span>[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">2</span>]</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>class_3_phenols <span class="ot">=</span> wine<span class="sc">$</span><span class="st">`</span><span class="at">Total phenols</span><span class="st">`</span>[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">3</span>]</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>class_1_phenols <span class="ot">&lt;-</span> wine<span class="sc">$</span><span class="st">`</span><span class="at">Total phenols</span><span class="st">`</span>[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">1</span>]</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>class_2_phenols <span class="ot">&lt;-</span> wine<span class="sc">$</span><span class="st">`</span><span class="at">Total phenols</span><span class="st">`</span>[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">2</span>]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>class_3_phenols <span class="ot">&lt;-</span> wine<span class="sc">$</span><span class="st">`</span><span class="at">Total phenols</span><span class="st">`</span>[wine<span class="sc">$</span>Class <span class="sc">==</span> <span class="dv">3</span>]</span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># conduct pairwise t-tests</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>t_1_2 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(class_1_phenols, class_2_phenols)</span>
@@ -325,6 +325,39 @@ Class 3 Average  629.8958</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Since the p-values for all 3 tests are less than a significance level of alpha = 0.05, the difference between phenol levels in each of the pairs of classes is statistically significant"</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="problem-2---askamanager.org-data" class="level1">
+<h1>Problem 2 - AskAManager.org Data</h1>
+<section id="a-1" class="level2">
+<h2 class="anchored" data-anchor-id="a-1">2a</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the file AskAManager.csv and import the data into a data frame</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>manager <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">read.csv</span>(<span class="st">"AskAManager.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b-1" class="level2">
+<h2 class="anchored" data-anchor-id="b-1">2b</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># clean and simplify variable names</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(manager) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Index"</span>, <span class="st">"Timestamp"</span>, <span class="st">"Age"</span>, <span class="st">"Industry"</span>, <span class="st">"Job Title"</span>, <span class="st">"Additional Job Context"</span>, <span class="st">"Annual Salary"</span>, <span class="st">"Additional Compensation"</span>, <span class="st">"Currency"</span>, <span class="st">"Other Currency"</span>, <span class="st">"Additional Income Context"</span>, <span class="st">"Country"</span>, <span class="st">"State"</span>, <span class="st">"City"</span>, <span class="st">"Years Professional Experience"</span>, <span class="st">"Years Experience in Field"</span>, <span class="st">"Education Level"</span>, <span class="st">"Gender"</span>, <span class="st">"Race"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="c-1" class="level2">
+<h2 class="anchored" data-anchor-id="c-1">2c</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the number of observations before restricting the data</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Number of observations before restricting the data: "</span>, <span class="fu">nrow</span>(manager), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of observations before restricting the data:  28062 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># restrict the data to only those being paid in USD and print the number of observations after</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>manager_USD <span class="ot">&lt;-</span> manager[manager<span class="sc">$</span>Currency <span class="sc">==</span> <span class="st">"USD"</span>,]</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Number of observations after restricting the data: "</span>, <span class="fu">nrow</span>(manager_USD))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of observations after restricting the data:  23374</code></pre>
 </div>
 </div>
 </section>

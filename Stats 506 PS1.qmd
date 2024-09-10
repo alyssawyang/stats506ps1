@@ -101,9 +101,9 @@ cat("Percentage of wines: ", percentage, "%")
 overall_avg <- sapply(wine[, -1], mean)
 
 # find averages for each class
-class_1 = wine[wine$Class == 1, -1]
-class_2 = wine[wine$Class == 2, -1]
-class_3 = wine[wine$Class == 3, -1]
+class_1 <- wine[wine$Class == 1, -1]
+class_2 <- wine[wine$Class == 2, -1]
+class_3 <- wine[wine$Class == 3, -1]
 
 class_1_avg <- sapply(class_1, mean)
 class_2_avg <- sapply(class_2, mean)
@@ -121,9 +121,9 @@ t(avg_table)
 ```{r}
 #| code-fold: true
 # find total phenol levels for each class
-class_1_phenols = wine$`Total phenols`[wine$Class == 1]
-class_2_phenols = wine$`Total phenols`[wine$Class == 2]
-class_3_phenols = wine$`Total phenols`[wine$Class == 3]
+class_1_phenols <- wine$`Total phenols`[wine$Class == 1]
+class_2_phenols <- wine$`Total phenols`[wine$Class == 2]
+class_3_phenols <- wine$`Total phenols`[wine$Class == 3]
 
 # conduct pairwise t-tests
 t_1_2 <- t.test(class_1_phenols, class_2_phenols)
@@ -137,6 +137,35 @@ cat("P-value for t-test for phenols in classes 2 and 3: ", t_2_3$p.value, "\n")
 
 print("Since the p-values for all 3 tests are less than a significance level of alpha = 0.05, the difference between phenol levels in each of the pairs of classes is statistically significant")
 ```
+
+
+# Problem 2 - AskAManager.org Data
+
+## 2a
+```{r}
+# read in the file AskAManager.csv and import the data into a data frame
+manager <- data.frame(read.csv("AskAManager.csv"))
+```
+
+
+## 2b
+```{r}
+# clean and simplify variable names
+names(manager) <- c("Index", "Timestamp", "Age", "Industry", "Job Title", "Additional Job Context", "Annual Salary", "Additional Compensation", "Currency", "Other Currency", "Additional Income Context", "Country", "State", "City", "Years Professional Experience", "Years Experience in Field", "Education Level", "Gender", "Race")
+```
+
+
+## 2c
+```{r}
+# print the number of observations before restricting the data
+cat("Number of observations before restricting the data: ", nrow(manager), "\n")
+
+# restrict the data to only those being paid in USD and print the number of observations after
+manager_USD <- manager[manager$Currency == "USD",]
+cat("Number of observations after restricting the data: ", nrow(manager_USD))
+```
+
+
 
 
 
