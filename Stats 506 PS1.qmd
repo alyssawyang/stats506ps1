@@ -1,26 +1,95 @@
 ---
 title: "Stats 506 PS1"
-author: "Alyssa Yang"
+author: Alyssa Yang
 format: html
 ---
 
-## Quarto
+# Problem 1 - Wine Data
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
+## 1a
 ```{r}
-1 + 1
+# set the working directory
+setwd("~/Desktop/Stats\ 506/homework/Stats\ 506\ PS1")
+
+# create column names vector
+wine_colnames <- c("Class", "Alcohol", "Malic acid", "Ash", "Alcalinity of ash", "Magnesium", "Total phenols", "Flavanoids", 
+                   "Nonflavanoid phenols", "Proanthocyanins", "Color intensity", "Hue", "OD280/OD315 of diluted wines", "Proline")
+
+# read in data from wine.data and put it in a data frame
+wine <- data.frame(read.csv("wine.data", header = FALSE))
+names(wine) <- wine_colnames
 ```
 
-You can add options to executable code like this 
 
+## 1b
 ```{r}
-#| echo: false
-2 * 2
+#| code-fold: true
+# check that number of wines in each class is correct
+# 1: 59, 2: 71, 3: 48
+class_1 <- wine[wine$Class == 1,]
+cat("Number of wines in class 1: ", nrow(class_1), "\n")
+
+class_2 <- wine[wine$Class == 2,]
+cat("Number of wines in class 2: ", nrow(class_2), "\n")
+
+class_3 <- wine[wine$Class == 3,]
+cat("Number of wines in class 3: ", nrow(class_3), "\n")
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+
+## 1c
+### 1: What is the correlation between alcohol content and color intensity?
+```{r}
+#| code-fold: true
+cat("Correlation: ", cor(wine$Alcohol, wine$`Color intensity`))
+```
+
+### 2: Which class has the highest correlation? Which has the lowest?
+```{r}
+#| code-fold: true
+# create correlation matrix and select top triangle values
+correlation_matrix <- cor(wine)
+upper_triangle <- upper.tri(correlation_matrix)
+correlations <- correlation_matrix[upper_triangle]
+
+# find highest and lowest values
+highest <- max(correlations)
+lowest <- min(correlations)
+
+# find the names of variables with these values
+highest_idx <- which(correlation_matrix == highest, arr.ind = TRUE)
+lowest_idx <- which(correlation_matrix == lowest, arr.ind = TRUE)
+
+highest_correlation <- colnames(correlation_matrix)[highest_idx]
+lowest_correlation <- colnames(correlation_matrix)[lowest_idx]
+
+# only need the first 2 because the matrix is symmetrical
+cat("Classes with the highest correlation: ", highest_correlation[1], ", ", highest_correlation[2], "\n")
+cat("Classes with the lowest correlation: ", lowest_correlation[1], ", ", lowest_correlation[2], "\n")
+```
+
+
+### 3: What is the alcohol content of the wine with the highest color intensity?
+```{r}
+#| code-fold: true
+# find the wine with highest color intensity
+highest_intensity <- max(wine$`Color intensity`)
+highest_intensity_wine <- which(wine$`Color intensity` == highest_intensity)
+
+# find the alcohol content of the wine
+cat("Alcohol content: ", wine$Alcohol[highest_intensity_wine])
+```
+
+
+### 4: What percentage of wines had a higher content of proanthocyanins compare to ash?
+```{r}
+#| code-fold: true
+# find # wines that have higher content of proanthocyanins compared to ash
+higher_pro_wines <- wine[wine$Proanthocyanins > wine$Ash,]
+num_pro_wines <- nrow(higher_pro_wines)
+
+# find percentage of wines
+total_num_wines <- nrow(wine)
+percentage <- (num_pro_wines / total_num_wines) * 100
+cat("Percentage of wines: ", percentage, "%")
+```
