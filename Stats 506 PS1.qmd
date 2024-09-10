@@ -163,48 +163,46 @@ cat("Number of observations before restricting the data: ", nrow(manager), "\n")
 # restrict the data to only those being paid in USD and print the number of observations after
 manager <- manager[manager$Currency == "USD",]
 cat("Number of observations after restricting the data: ", nrow(manager))
-
-View(manager)
 ```
 
 
 ## 2d
 ```{r}
 #| code-fold: true
-library(dplyr)
-library(stringr)
-
-cat("Number of observations before cleaning: ", nrow(manager))
-
-# age <- as.numeric(manager$Age)
-# yrs_professional_exp <- manager$`Years Professional Experience`
-# yrs_exp_in_fields <- manager$`Years Experience in Field`
-
-# Define a function to convert ranges to numeric values
-convert_range_to_numeric <- function(x) {
-  # Handle cases with 'or older'
-  if (str_detect(x, "or older")) {
-    return(41)  # or any value you consider appropriate for "or older"
-  }
-  if (str_detect(x, "or less")) {
-    return(1)  # or any value you consider appropriate for "or older"
-  }
-  
-  # Split range and convert to numeric
-  range_split <- str_split(x, "-|\\s|years", simplify = TRUE)
-  min_val <- as.numeric(range_split[1])
-}
-
-manager$min_yrs_exp_field = sapply(yrs_exp_in_fields, function(x) convert_range_to_numeric(x))
-manager$min_yrs_prof_exp = sapply(yrs_professional_exp, function(x) convert_range_to_numeric(x))
-
-manager$Age <- as.numeric(manager$Age)
-manager <- manager[manager$Age >= 18 & 
-                    manager$Age - manager$min_yrs_exp_field >= 18 &
-                    manager$Age - manager$min_yrs_prof_exp >= 18,]
-
-cat("Number of observations after cleaning: ", nrow(manager))
-
+# library(dplyr)
+# library(stringr)
+# 
+# cat("Number of observations before cleaning: ", nrow(manager))
+# 
+# # age <- as.numeric(manager$Age)
+# # yrs_professional_exp <- manager$`Years Professional Experience`
+# # yrs_exp_in_fields <- manager$`Years Experience in Field`
+# 
+# # Define a function to convert ranges to numeric values
+# convert_range_to_numeric <- function(x) {
+#   # Handle cases with 'or older'
+#   if (str_detect(x, "or older")) {
+#     return(41)  # or any value you consider appropriate for "or older"
+#   }
+#   if (str_detect(x, "or less")) {
+#     return(1)  # or any value you consider appropriate for "or older"
+#   }
+#   
+#   # Split range and convert to numeric
+#   range_split <- str_split(x, "-|\\s|years", simplify = TRUE)
+#   min_val <- as.numeric(range_split[1])
+# }
+# 
+# manager$min_yrs_exp_field = sapply(yrs_exp_in_fields, function(x) convert_range_to_numeric(x))
+# manager$min_yrs_prof_exp = sapply(yrs_professional_exp, function(x) convert_range_to_numeric(x))
+# 
+# manager$Age <- as.numeric(manager$Age)
+# manager <- manager[manager$Age >= 18 & 
+#                     manager$Age - manager$min_yrs_exp_field >= 18 &
+#                     manager$Age - manager$min_yrs_prof_exp >= 18,]
+# 
+# cat("Number of observations after cleaning: ", nrow(manager))
+# 
 
 ```
 
@@ -212,58 +210,53 @@ cat("Number of observations after cleaning: ", nrow(manager))
 
 ```{r}
 #| code-fold: true
-manager$Age <- as.factor(manager$Age)
-manager$`Years Professional Experience` <- as.factor(manager$`Years Professional Experience`)
-manager$`Years Experience in Field` <- as.factor(manager$`Years Experience in Field`)
-
-View(manager)
-
-# View the distinct levels of the factor to ensure consistency
-levels(manager$`Years Experience in Field`)
-levels(manager$`Years Professional Experience`)
-
-# Create a mapping of ranges to minimum and maximum values
-experience_map <- list(
-  "0-1 years" = c(0, 1),
-  "2-4 years" = c(2, 4),
-  "5-7 years" = c(5, 7),
-  "8-10 years" = c(8, 10),
-  "41 years or older" = c(41, Inf)  # Handle the special case
-)
-
-# Define a function to convert factor levels to numeric ranges
-convert_factor_to_range <- function(x) {
-  return(experience_map[[x]])
-}
-
-# Apply the function to each experience column
-manager <- manager %>%
-  mutate(
-    min_experience_field = sapply(`Years Experience in Field`, function(x) convert_factor_to_range(as.character(x))[1]),
-    max_experience_field = sapply(`Years Experience in Field`, function(x) convert_factor_to_range(as.character(x))[2]),
-    min_professional_experience = sapply(`Years Professional Experience`, function(x) convert_factor_to_range(as.character(x))[1]),
-    max_professional_experience = sapply(`Years Professional Experience`, function(x) convert_factor_to_range(as.character(x))[2])
-  )
-
-# Filter rows based on the assumption that no one starts working before age 18
-manager_clean <- manager %>%
-  filter(Age >= 18 & 
-         min_experience_field >= 0 &
-         max_experience_field <= (Age - 18) & 
-         min_professional_experience >= 0 & 
-         max_professional_experience <= (Age - 18))
-
-# Show number of observations before and after filtering
-print(paste("Number of observations before cleaning: ", nrow(manager)))
-print(paste("Number of observations after cleaning: ", nrow(manager_clean)))
-
-```
-
-
-## 2e
-```{r}
+# manager$Age <- as.factor(manager$Age)
+# manager$`Years Professional Experience` <- as.factor(manager$`Years Professional Experience`)
+# manager$`Years Experience in Field` <- as.factor(manager$`Years Experience in Field`)
+# 
+# View(manager)
+# 
+# # View the distinct levels of the factor to ensure consistency
+# levels(manager$`Years Experience in Field`)
+# levels(manager$`Years Professional Experience`)
+# 
+# # Create a mapping of ranges to minimum and maximum values
+# experience_map <- list(
+#   "0-1 years" = c(0, 1),
+#   "2-4 years" = c(2, 4),
+#   "5-7 years" = c(5, 7),
+#   "8-10 years" = c(8, 10),
+#   "41 years or older" = c(41, Inf)  # Handle the special case
+# )
+# 
+# # Define a function to convert factor levels to numeric ranges
+# convert_factor_to_range <- function(x) {
+#   return(experience_map[[x]])
+# }
+# 
+# # Apply the function to each experience column
+# manager <- manager %>%
+#   mutate(
+#     min_experience_field = sapply(`Years Experience in Field`, function(x) convert_factor_to_range(as.character(x))[1]),
+#     max_experience_field = sapply(`Years Experience in Field`, function(x) convert_factor_to_range(as.character(x))[2]),
+#     min_professional_experience = sapply(`Years Professional Experience`, function(x) convert_factor_to_range(as.character(x))[1]),
+#     max_professional_experience = sapply(`Years Professional Experience`, function(x) convert_factor_to_range(as.character(x))[2])
+#   )
+# 
+# # Filter rows based on the assumption that no one starts working before age 18
+# manager_clean <- manager %>%
+#   filter(Age >= 18 & 
+#          min_experience_field >= 0 &
+#          max_experience_field <= (Age - 18) & 
+#          min_professional_experience >= 0 & 
+#          max_professional_experience <= (Age - 18))
+# 
+# # Show number of observations before and after filtering
+# print(paste("Number of observations before cleaning: ", nrow(manager)))
+# print(paste("Number of observations after cleaning: ", nrow(manager_clean)))
 
 ```
+
 
 
 # Problem 3
@@ -328,6 +321,7 @@ nextPalindrome <- function(num) {
 
 ## 3c
 ```{r}
+#| code-fold: true
 cat("i. ", nextPalindrome(391), "\n")
 cat("ii. ", nextPalindrome(9928), "\n")
 cat("iii. ", nextPalindrome(19272719), "\n")
