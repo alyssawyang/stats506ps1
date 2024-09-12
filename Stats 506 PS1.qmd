@@ -54,6 +54,7 @@ cat("Correlation: ", cor(wine$Alcohol, wine$`Color intensity`))
 ### 2: Which class has the highest correlation? Which has the lowest?
 ```{r}
 #| code-fold: true
+# I used chatgpt to help write the code for the correlation matrix / upper.tri function
 # create correlation matrix and select top triangle values
 correlation_matrix <- cor(wine)
 upper_triangle <- upper.tri(correlation_matrix)
@@ -196,6 +197,7 @@ prof_levels = levels(manager$'Years Professional Experience')
 manager$'Years Experience in Field' = as.factor(manager$'Years Experience in Field')
 field_levels = levels(manager$'Years Experience in Field')
 
+# used chatgpt to come up with the idea to use ifelse statements and levels
 # take highest age in the age range
 manager$highest_age <- ifelse(manager$Age == age_levels[1], 24,
                         ifelse(manager$Age == age_levels[2], 34,
@@ -290,7 +292,7 @@ isPalindromic <- function(num) {
   
   # reverse the input and store into new variable
   num_char <- as.character(num)
-  reversed_split <- rev(strsplit(num_char, "")[[1]])
+  reversed_split <- rev(strsplit(num_char, "")[[1]]) # used chatgpt to help me write this line
   reversed_num <- as.numeric(paste(reversed_split, collapse = ""))
   
   # bool indicating whether input is a palindrome (input is same as its reverse)
